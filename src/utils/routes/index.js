@@ -4,7 +4,6 @@ import LogScene from '../../Scene/LogScene'
 import MainScene from '../../Scene/MainScene'
 import ThemeScene from '../../Scene/ThemeScene'
 import UserScene from '../../Scene/UserScene'
-import MindScene from '../../Scene/MindScene'
 import NotFound from '../../Scene/NotFound'
 
 const routes = [
@@ -13,16 +12,15 @@ const routes = [
     component: MainScene,
   },
   {
-    path: '/log/:activityId/:userId',
+    path: '/log/:activityId',
     component: LogScene,
   },
   {
     path: '/discovery',
     component: DiscoverScene
-
   },
   {
-    path: '/myRandom/:userId',
+    path: '/myRandom',
     component: UserScene
   },
   {
@@ -30,11 +28,7 @@ const routes = [
     component: ThemeScene
   },
   {
-    path: '/:category/:themeId/:mindId',
-    component: MindScene
-  },
-  {
-    path: '/:category/:themeId/:mindId/:activityId',
+    path: '/:category/:themeId/:activityId',
     component: ActivityScene
   },
   {

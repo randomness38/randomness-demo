@@ -3,6 +3,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import routes from './utils/routes'
 import MainNav from '../src/Scene/MainNav';
 import SubNav from '../src/Scene/SubNav';
+import './main.css'
+
 
 class App extends Component {
   render() {

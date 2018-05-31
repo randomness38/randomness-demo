@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {getDefaultData} from "./helper";
+import { Circle } from 'rc-progress';
+
 
 const Header = () => (
   <header>
@@ -8,10 +10,10 @@ const Header = () => (
   </header>
 )
 
-const ButtonGroup = (props) => (
+const ButtonGroup = ({onStart, stopped}) => (
   <div>
-    <span onClick={props.onStart}>{props.stopped ? 'Start' : 'Pause'}</span>
-    <span onClick={props.onReset}>Reset</span>
+    <span onClick={onStart}>{stopped ? 'Start' : 'Pause'}</span>
+    {/*<span onClick={props.onReset}>Reset</span>*/}
   </div>
 )
 
@@ -20,9 +22,10 @@ class Timer extends Component {
     clearInterval(this.timerID)
   }
   state = {
-    activityTime: 1,
+    activityTime: this.props.runningTime,
+    percent: 0,
+    stopped: true,
     seconds: 0,
-    stopped: true
   };
 
   tick() {
@@ -63,6 +66,12 @@ class Timer extends Component {
     }
   }
 
+  handleTimePercentage = () => {
+    let runningSec = this.state.activityTime * 60;
+    let percent = (this.state.seconds / runningSec) * 100;
+    return percent
+  };
+
 
   render(){
     const { minutes, seconds } = this.transformTime();
@@ -75,7 +84,7 @@ class Timer extends Component {
         <Header />
         <ButtonGroup
           onStart={() => this.handleStart()}
-          onReset={() => this.handleReset()}
+          // onReset={() => this.handleReset()}
           stopped={this.state.stopped}
         />
         <div>{lapseMin}</div>
@@ -83,10 +92,12 @@ class Timer extends Component {
         {
 
           (lapseMin === this.state.activityTime)
-          ? this.props.history.push(`/log/${activityId}/${userId}`)
+          // ? this.props.history.push(`/discover`)
+          ? this.props.isCompleted()
           : (
               <div>
-                {minutes} : {seconds}
+                <p>{`${minutes} : ${seconds}`}</p>
+                <Circle style={{width: 300}} trailWidth={30} percent={this.handleTimePercentage()} strokeWidth="30" strokeColor="blue" />
               </div>
             )
         }

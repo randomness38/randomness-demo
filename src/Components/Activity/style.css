@@ -1,0 +1,121 @@
+/*
+On Github : https://github.com/ImSolitude/hover-styles
+
+*/
+body {
+    background: #ecf0f1;
+    margin: 0;
+}
+
+html {
+    width: 100%;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+
+*, *:before, *:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
+/* sections */
+
+
+section{
+    width: 300px;
+    position: relative;
+    height: 50px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    padding: 15px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+section div {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    vertical-align: bottom;
+    margin: 0;
+    color: inherit;
+}
+
+div:hover{
+    cursor: pointer;
+}
+
+/* the17 */
+
+
+
+section.the17 {
+    background: -webkit-linear-gradient(90deg, #01a99c 10%, #0698b1 90%);
+    background: linear-gradient(90deg, #01a99c 10%, #0698b1 90%);
+    color: #E9F1F7;
+}
+
+section.the17 div {
+    color:#E9F1F7;
+    font-weight: 700;
+    overflow: hidden;
+    padding: 0 5px;
+    margin: 0 5px;
+
+}
+
+.the17 div:before{
+    content: "";
+    top:0; left: 0; bottom: 0; right: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: -webkit-linear-gradient(90deg, #d64759 10%, #da7352 90%);
+    background: linear-gradient(90deg, #d64759 10%, #da7352 90%);
+    z-index: -2;
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+
+.the17 div:hover::before{
+    transition: transform .7s cubic-bezier(.165,.84,.44,1);
+    transform: translateY(0%);
+    opacity: 1;
+}
+
+.the17 div:after{
+    content: "";
+    top:0; left: 0; bottom: 0; right: 0;
+    width: 100%;  height: 100%;
+    position: absolute;
+    background: -webkit-linear-gradient(to top, #d64759 10%, #da7352 90%);
+    background: linear-gradient(to top, #d64759 10%, #da7352 90%);
+
+    z-index: -2;
+    transition: transform .8s cubic-bezier(.165,.84,.44,1);
+    transform: translateY(-100%);
+    opacity: 1;
+}
+.the17 div:hover::after {
+    transition: none;
+    transform: translateY(0%);
+    opacity: 0;
+}
+
+#the17-selected {
+    background: #F2544C;
+}
+
+
+
+
+/* the18 */
+
+

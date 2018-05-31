@@ -1,47 +1,51 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux'
-// import * as actions from '../../actions/index';
-import { MindItem } from './MindItem'
-import { ThemeCard } from './ThemeCard'
-import {getDefaultData} from "../../utils/helper";
-
+import ThemeCard from "../../Components/Theme/ThemeCard";
+import ActivityList from "../../Components/Activity/ActivityList";
+import * as actions from '../../actions/index';
+import ActivityItem from "../../Components/Activity/ActivityItem";
 
 class ThemeScene extends Component {
-
+  componentDidMount() {
+    const {doFetchActivitiesByTheme, themeId} = this.props;
+    doFetchActivitiesByTheme(themeId);
+  }
   render() {
-    const themes = getDefaultData('themes');
-    const curTheme = themes.find(theme => {
-      return theme.name === this.props.themeId
-    });
-    const filteredMinds = getDefaultData('minds').filter(mind => {
-      return mind.theme === this.props.themeId
-    });
+    const {category, themeId, activity} = this.props;
     return (
       <div>
-        {curTheme && <ThemeCard theme={curTheme}/>}
-        {filteredMinds.map(mind => {
-          return (
-              <MindItem
-                key={mind.id}
-                mind={mind}
-                category={this.props.category}
-                themeId={this.props.themeId}/>
+        <h4>Theme Card</h4>
+        <ThemeCard />
+        {
+          activity && (
+            <ActivityItem
+              category={category}
+              themeId={themeId}
+              filter={activity.id}
+            >
+              Random
+            </ActivityItem>
           )
-        })}
+        }
+
+        <h4>Activity List</h4>
+        <ActivityList />
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { themeId, category } = ownProps.match.params;
+  const {category, themeId} = ownProps.match.params;
+  const filteredKeys = state.activityIdsByFilter[themeId].ids;
+  let randomKey = filteredKeys[Math.floor(Math.random()*filteredKeys.length)];
   return {
+    activity: state.byActivityId[randomKey],
+    category,
     themeId,
-    category
   }
-
-}
+};
 
 // const mapDispatchToProps = dispatch => ({
 //     dispatcherName: () => dispatch(dispatcherName()),
@@ -50,5 +54,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default ThemeScene = withRouter(connect(
   mapStateToProps,
-  null
+  actions
 )(ThemeScene));

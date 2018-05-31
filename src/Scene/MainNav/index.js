@@ -1,30 +1,25 @@
 import React, {Component} from 'react'
-import {withRouter, Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux'
-import {getDefaultData} from "../../utils/helper";
 // import * as actions from '../../actions/index';
+import Navigation from '../../Components/Navigation'
 
 class MainNav extends Component {
   render() {
-    const defaultData = getDefaultData('navigation');
-    const userData = getDefaultData('user');
     return (
       <div>
-        {defaultData.map( nav => {
-          return <div key={nav.id}>
-            <Link to={`/${nav.name === 'myRandom' ? `myRandom/${userData[0].userName}`: nav.path}`}
-            >
-              {nav.name}
-            </Link>
-          </div>
-        })}
+        <h2>Main Navigation</h2>
+        <Navigation/>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return state
+  // const { paramId } = ownProps.match.params;
+  return {
+    state
+  }
 };
 
 // const mapDispatchToProps = dispatch => ({
@@ -32,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
 // })
 
 
-export default MainNav= withRouter(connect(
+export default MainNav = withRouter(connect(
   mapStateToProps,
-  null,
+  null
 )(MainNav));
